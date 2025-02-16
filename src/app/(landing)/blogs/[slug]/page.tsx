@@ -18,13 +18,16 @@ export default async function BlogDetail({ params }: BlogDetailProps) {
   }
 
   return (
-    <div className="flex flex-col space-y-4">
-      <h1 className="text-xl font-bold">{blogPost.title}</h1>
-      <div className="flex items-center justify-center">
-      <Image src={blogPost.image} alt={blogPost.title} width={600} height={600} />
+    <div className="flex flex-col space-y-8 text-slate-400">
+      <div className="flex justify-between items-center">
+        <h1 className="text-xl font-bold tracking-wider text-slate-300">{blogPost.title}</h1>
+        <p>{blogPost.date}</p>
       </div>
-      <p>{blogPost.description}</p>
-      <p>{blogPost.date}</p>
+      <div className="flex items-center justify-center">
+        <Image src={blogPost.image} alt={blogPost.title} width={600} height={600} />
+      </div>
+      <p>{blogPost.content}</p>
+      
     </div>
   );
 }
