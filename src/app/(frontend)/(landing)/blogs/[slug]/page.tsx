@@ -1,6 +1,7 @@
 import React from "react";
 import blogPosts from "@/assets/constant/posts";
 import Image from "next/image";
+import { RichText } from "@payloadcms/richtext-lexical/react";
 
 type BlogDetailProps = {
   params: {
@@ -9,10 +10,9 @@ type BlogDetailProps = {
 };
 
 export default async function BlogDetail({ params }: BlogDetailProps) {
-  //   const response = await fetch("https://pokeapi.co/api/v2/pokemon/ditto");
-  //   const data = await response.json();
-
-  const blogPost = blogPosts.find((post) => post.slug === params.slug);
+  const posts = await blogPosts();
+  const blogPost = posts.find((post) => post.slug === params.slug);
+  
   if (!blogPost) {
     return <div>Not Found</div>;
   }
@@ -24,10 +24,10 @@ export default async function BlogDetail({ params }: BlogDetailProps) {
         <p>{blogPost.date}</p>
       </div>
       <div className="flex items-center justify-center">
-        <Image src={blogPost.image} alt={blogPost.title} width={600} height={600} />
+        <Image src={blogPost.image.url} alt={blogPost.title} width={600} height={600} />
       </div>
-      <p>{blogPost.content}</p>
-      
+      {/* <p>{blogPost.content}</p> */}
+      <RichText data={blogPost.content} />
     </div>
   );
 }

@@ -6,7 +6,9 @@ import BlogCard from "@/components/BlogCard";
 import blogPosts from "@/assets/constant/posts";
 import Link from "next/link";
 
-export default function LandingPage() {
+export default async function LandingPage() {
+  const posts = await blogPosts();
+
   return (
     <main>
       <section className="space-y-8 mt-8 ">
@@ -30,8 +32,15 @@ export default function LandingPage() {
       <section className="space-y-4 mt-8">
         <h2 className="text-2xl font-bold">Blog Posts</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {blogPosts.slice(0, 3).map((post, index) => (
-            <BlogCard key={index} {...post} />
+          {posts.slice(0, 3).map((post: { title: string; description: string; date: string; image: { url: string; }; slug: string; }, index: React.Key | null | undefined) => (
+            <BlogCard 
+              key={index} 
+              title={post.title} 
+              description={post.description}
+              date={post.date}
+              image={post.image.url}
+              slug={post.slug}  
+            />
           ))}
         </div>
       </section>
